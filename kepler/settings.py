@@ -10,13 +10,13 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+
 import dj_database_url
 import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -30,16 +30,21 @@ DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
+    # Django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     # Disable Django's own staticfiles handling in favour of WhiteNoise, for
     # greater consistency between gunicorn and `./manage.py runserver`. See:
     # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
+
+    # 3rd party
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +56,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'account.middleware.LocaleMiddleware',
+    'account.middleware.TimezoneMiddleware',
 ]
 
 ROOT_URLCONF = 'kepler.urls'
@@ -66,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'account.context_processors.account',
             ],
             'debug': DEBUG,
         },
@@ -73,7 +81,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'kepler.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -98,6 +105,10 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    "account.auth_backends.EmailAuthenticationBackend"
 ]
 
 # Internationalization
@@ -135,3 +146,11 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+SITE_ID = 1
+
+# Registration vars
+
+ACCOUNT_EMAIL_UNIQUE = True
+ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
+ACCOUNT_USER_DISPLAY = lambda user: user.email
