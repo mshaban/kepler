@@ -21,4 +21,5 @@ from django.urls.conf import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r"^account/", include("account.urls")),
+    path('skills', include('skill_platform.urls'))
 ]

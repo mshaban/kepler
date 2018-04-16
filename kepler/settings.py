@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     #3rd party lib
     "account",
+    'skill_platform'
     
 ]
 
