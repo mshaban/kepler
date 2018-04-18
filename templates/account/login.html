@@ -1,5 +1,6 @@
 {% extends "site_base.html" %}
 
+{% load account_tags %}
 {% load i18n %}
 {% load bootstrap %}
 
@@ -9,7 +10,7 @@
     <div class="row">
         <div class="col-md-4">
             <form method="POST" action="{% url "account_login" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-                <legend>{% trans "Log in to an existing accounts" %}</legend>
+                <legend>{% trans "Log in to an existing account" %}</legend>
                 {% csrf_token %}
                 {{ form|bootstrap }}
                 {% if redirect_field_value %}
@@ -21,13 +22,13 @@
             {% if ACCOUNT_OPEN_SIGNUP %}
                 <p class="login-signup">
                     <small>
-                        {% trans "Don't have an accounts?" %}  <strong><a href="{% urlnext 'account_signup' %}">{% trans "Sign up" %}</a></strong>
+                        {% trans "Don't have an account?" %}  <strong><a href="{% urlnext 'account_signup' %}">{% trans "Sign up" %}</a></strong>
                     </small>
                 </p>
             {% endif %}
         </div>
         <div class="col-md-4">
-            {% include "accounts/_login_sidebar.html" %}
+            {% include "account/_login_sidebar.html" %}
         </div>
     </div>
 {% endblock %}
