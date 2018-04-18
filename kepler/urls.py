@@ -17,9 +17,12 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
+import skill_platform.views
 
 urlpatterns = [
+    url(r'^$', skill_platform.views.index, name='home'),
     path('admin/', admin.site.urls),
+    path('skills', include('skill_platform.urls')),
+    # url(r"^account/signup/$", skill_platform.views.SignupView.as_view(), name="account_signup"),
     url(r"^account/", include("account.urls")),
-    path('skills', include('skill_platform.urls'))
 ]
