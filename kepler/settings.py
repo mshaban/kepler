@@ -40,10 +40,8 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    "account",
     # 3rd party lib
     'skill_platform',
-    'pinax_theme_bootstrap',
     "bootstrapform",
 
 ]
@@ -57,8 +55,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "account.middleware.LocaleMiddleware",
-    "account.middleware.TimezoneMiddleware",
 ]
 
 ROOT_URLCONF = 'kepler.urls'
@@ -68,6 +64,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, "templates"),
+            os.path.join(BASE_DIR, "templates/accounts"),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -76,8 +73,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                "account.context_processors.account",
-                "pinax_theme_bootstrap.context_processors.theme"
             ],
             'debug': DEBUG,
         },
@@ -148,3 +143,5 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 django_heroku.settings(locals())
 
 SITE_ID = 1
+
+AUTH_USER_MODEL = 'skill_platform.User'
