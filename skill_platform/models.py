@@ -2,12 +2,12 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.utils.translation import ugettext_lazy as _
-
 # Create your models here.
 
 from django.db import models
 
 
+# 
 class UserManager(BaseUserManager):
     """Define a model manager for User model with no username field."""
 
@@ -44,7 +44,6 @@ class UserManager(BaseUserManager):
 class User(AbstractUser):
     username = None
     username_validator = UnicodeUsernameValidator()
-    skills = models.TextField(max_length=200, blank=True)
     kepler_id = models.CharField(
         _('kepler id'),
         max_length=150,
@@ -58,3 +57,21 @@ class User(AbstractUser):
     USERNAME_FIELD = 'kepler_id'
     objects = UserManager()
     REQUIRED_FIELDS = ['email']
+
+
+class Skills(models.Model):
+    """
+     Kepler users skills
+    """
+    User = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, blank=False, verbose_name="skill name",
+                            help_text="name of skill you can offer")
+    description = models.TextField(verbose_name="skill description",
+                                   help_text="please describe the skill you mentioned above ", blank=False)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = "Kepler User skill"

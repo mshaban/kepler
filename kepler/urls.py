@@ -23,7 +23,7 @@ import skill_platform.urls_user_registeration
 
 urlpatterns = [
     url(r'^$', skill_platform.views.index, name='home'),
-    path('accounts/', include(skill_platform.urls_user_registeration)),
+    url(r"^account/", include("account.urls")),
     path('admin/', admin.site.urls),
     path('skills/', include(skill_platform.urls)),
 ]

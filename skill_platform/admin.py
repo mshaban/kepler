@@ -6,7 +6,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.utils.translation import ugettext_lazy as _
 
-from .models import User
+from .models import User, Skills
 
 
 @admin.register(User)
@@ -29,3 +29,7 @@ class UserAdmin(DjangoUserAdmin):
     list_display = ('kepler_id', 'first_name', 'last_name', 'is_staff')
     search_fields = ('kepler_id', 'first_name', 'last_name')
     ordering = ('kepler_id',)
+
+
+models_to_register = [Skills]  # iterable list
+admin.site.register(models_to_register)
