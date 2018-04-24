@@ -1,10 +1,11 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
-from django.utils.translation import ugettext_lazy as _
-# Create your models here.
-
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
+
+# Create your models here.
 
 
 # 
@@ -59,11 +60,11 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['email']
 
 
-class Skills(models.Model):
+class Skill(models.Model):
     """
      Kepler users skills
     """
-    User = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=False, verbose_name="skill name",
                             help_text="name of skill you can offer")
     description = models.TextField(verbose_name="skill description",
@@ -80,3 +81,12 @@ class Skills(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='images/')
+
+    def __str__(self):
+        return self.user.kepler_id
+
+    class Meta:
+        ordering = ["user"]
+        verbose_name = "User profile"
+
+
