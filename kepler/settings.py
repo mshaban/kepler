@@ -68,6 +68,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, "templates"),
             os.path.join(BASE_DIR, "templates/accounts"),
+            os.path.join(BASE_DIR, "templates/skill_platform"),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -149,4 +150,4 @@ django_heroku.settings(locals())
 SITE_ID = 1
 
 AUTH_USER_MODEL = 'skill_platform.User'
-LOGIN_URL = 'account/login'
+LOGIN_URL = '/account/login'

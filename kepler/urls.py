@@ -16,15 +16,16 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path
+from django.urls.base import reverse_lazy
 from django.urls.conf import include
-import skill_platform.views
-import skill_platform.user_views
-import skill_platform.urls
+
+from skill_platform import urls, user_views, views
 
 urlpatterns = [
-    url(r'^$', skill_platform.views.index, name='home'),
-    url(r"^account/signup/$", skill_platform.user_views.SignupView.as_view(), name="account_signup"),
+    url(r'^$', views.home, name='home'),
+    url(r"^account/signup/$", user_views.SignupView.as_view(success_url=reverse_lazy('addSkill')),
+        name="account_signup"),
     url(r"^account/", include("account.urls")),
     path('admin/', admin.site.urls),
-    path('skills/', include(skill_platform.urls)),
+    path('skills/', include(urls)),
 ]
