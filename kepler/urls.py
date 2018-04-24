@@ -18,11 +18,12 @@ from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
 import skill_platform.views
+import skill_platform.user_views
 import skill_platform.urls
-import skill_platform.urls_user_registeration
 
 urlpatterns = [
     url(r'^$', skill_platform.views.index, name='home'),
+    url(r"^account/signup/$", skill_platform.user_views.SignupView.as_view(), name="account_signup"),
     url(r"^account/", include("account.urls")),
     path('admin/', admin.site.urls),
     path('skills/', include(skill_platform.urls)),

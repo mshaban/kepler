@@ -75,3 +75,8 @@ class Skills(models.Model):
     class Meta:
         ordering = ["name"]
         verbose_name = "Kepler User skill"
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to='images/')

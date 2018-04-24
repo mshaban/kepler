@@ -1,11 +1,10 @@
 from django import forms
-from django.forms.widgets import Textarea
-
 import account.forms
+from .models import UserProfile
 
-# 
-# class SignupForm(accounts.forms.SignupForm):
-# 
-#     skills = forms.Textarea()
-#     kepler_id = forms.CharField()
-#     
+
+class SignupForm(account.forms.SignupForm):
+    avatar = forms.ImageField(required=True)
+
+    class Meta:
+        model = UserProfile
