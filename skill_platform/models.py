@@ -64,7 +64,7 @@ class Skill(models.Model):
     """
      Kepler users skills
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='skills')
     name = models.CharField(max_length=100, blank=False, verbose_name="skill name",
                             help_text="name of skill you can offer")
     description = models.TextField(verbose_name="skill description",
@@ -88,5 +88,3 @@ class UserProfile(models.Model):
     class Meta:
         ordering = ["user"]
         verbose_name = "User profile"
-
-
