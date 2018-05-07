@@ -151,3 +151,5 @@ SITE_ID = 1
 
 AUTH_USER_MODEL = 'skill_platform.User'
 LOGIN_URL = '/account/login'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

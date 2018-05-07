@@ -60,6 +60,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['email']
 
 
+
 class Skill(models.Model):
     """
      Kepler users skills
