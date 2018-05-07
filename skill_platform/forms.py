@@ -7,6 +7,7 @@ from .models import Skill, UserProfile
 
 class SignupForm(account.forms.SignupForm):
     avatar = forms.ImageField(required=True)
+    kepler_id = forms.CharField(max_length=30, required=True)
 
     class Meta:
         model = UserProfile

@@ -16,9 +16,10 @@ class SignupView(account.views.SignupView):
         super(SignupView, self).after_signup(form)
 
     def create_profile(self, form):
-        profile = self.created_user.profile  # replace with your reverse one-to-one profile attribute
+        profile = self.created_user.userprofile  # replace with your reverse one-to-one profile attribute
+        self.created_user.kepler_id = self.created_user.username
         profile.avatar = form.cleaned_data["avatar"]
-        profile.save()
+        # profile.save()
 
 
 @receiver(post_save, sender=User)

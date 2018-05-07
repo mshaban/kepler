@@ -59,7 +59,7 @@ class User(AbstractUser):
     objects = UserManager()
     REQUIRED_FIELDS = ['email']
 
-
+    
 
 class Skill(models.Model):
     """
