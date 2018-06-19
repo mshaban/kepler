@@ -2,15 +2,25 @@ import account.forms
 from django import forms
 from django.forms.formsets import formset_factory
 
+from skill_platform.models import User
 from .models import Skill, UserProfile
+from django.core.exceptions import ValidationError
 
+
+def validate_user_exist(kepler_id):
+    if not User.objects.filter(kepler_id=kepler_id).exists():
+        raise ValidationError("please make sure that your kepler id is correct")
+    return kepler_id
 
 class SignupForm(account.forms.SignupForm):
     avatar = forms.ImageField(required=True)
-    kepler_id = forms.CharField(max_length=30, required=True)
-
+    kepler_id = forms.CharField(max_length=30, required=True, validators=[validate_user_exist])
+    username = None
     class Meta:
         model = UserProfile
+
+
+
 
 
 class SkillForm(forms.Form):

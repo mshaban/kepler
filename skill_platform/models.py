@@ -1,5 +1,5 @@
-from django.contrib.auth.base_user import BaseUserManager
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
+from django.contrib.auth.models import AbstractUser, PermissionsMixin
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -42,9 +42,10 @@ class UserManager(BaseUserManager):
         return self._create_user(kepler_id, password, **extra_fields)
 
 
-class User(AbstractUser):
-    username = None
+class User(AbstractBaseUser, PermissionsMixin):
+    # username = None
     username_validator = UnicodeUsernameValidator()
+    email = models.EmailField(unique=True, null=True)
     kepler_id = models.CharField(
         _('kepler id'),
         max_length=150,
@@ -55,11 +56,34 @@ class User(AbstractUser):
             'unique': _("A user with that kepler id already exists."),
         },
     )
+    first_name = models.CharField(_('first_name'), max_length=250)
+    last_name = models.CharField(_('last_name'), max_length=250)
+    is_staff = models.BooleanField(
+        _('staff status'),
+        default=False,
+        help_text=_('Designates whether the user can log into this site.'),
+    )
+    is_active = models.BooleanField(
+        _('active'),
+        default=True,
+        help_text=_(
+            'Designates whether this user should be treated as active. '
+            'Unselect this instead of deleting accounts.'
+        ),
+    )
     USERNAME_FIELD = 'kepler_id'
     objects = UserManager()
     REQUIRED_FIELDS = ['email']
 
-    
+    def __str__(self):
+        return self.kepler_id
+
+    def get_full_name(self):
+        return self.first_name + " " + self.last_name
+
+    def get_short_name(self):
+        return self.kepler_id
+
 
 class Skill(models.Model):
     """

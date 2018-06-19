@@ -19,10 +19,10 @@ class UserAdmin(DjangoUserAdmin):
 
     fieldsets = (
         (None, {'fields': ('kepler_id', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name', 'email', 'avatar')}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name', 'email')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),
-        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+        # (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
         # (_('Skills'), {'fields': ['skill_set']}),
     )
     # add_fieldsets = (
@@ -31,6 +31,12 @@ class UserAdmin(DjangoUserAdmin):
     #         'fields': ('kepler_id', 'password1', 'password2', 'skills'),
     #     }),
     # )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('kepler_id', 'password1', 'password2', 'email'),
+        }),
+    )
     list_display = ('kepler_id', 'first_name', 'last_name', 'is_staff')
     search_fields = ('kepler_id', 'first_name', 'last_name')
     ordering = ('kepler_id',)
@@ -38,7 +44,7 @@ class UserAdmin(DjangoUserAdmin):
     inlines = [
         SkillsInline,
     ]
-
+    # exclude = ['username']
 
 models_to_register = [Skill, UserProfile]  # iterable list
 admin.site.register(models_to_register)
