@@ -1,0 +1,18 @@
+{% extends '../site_base.html' %}
+{% load static %}
+{% block body %}
+    <b>first name: {{ user.first_name }}</b>
+    <br>
+    <b>last name: {{ user.last_name }}</b><br>
+
+    <img src="/static/{{ user_profile.avatar }}" alt="my avatar" height="100px" width="100px"/><br>
+    <b>tokens: {{ user.tokens }}</b>
+    <br>
+    <b>Skills</b>
+    <br>
+    {% for skill in user.skills.all %}
+        <b>{{ skill.name }}</b>
+        <b>{{ skill.description }}</b>
+        <br>
+    {% endfor %}
+{% endblock %}

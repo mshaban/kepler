@@ -106,7 +106,7 @@ class Skill(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to='images/')
+    avatar = models.ImageField(upload_to='staticfiles/images/')
 
     def __str__(self):
         return self.user.kepler_id

@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
+from django.shortcuts import render
 from django.utils.decorators import method_decorator
 
 from .forms import SkillForm, SkillFormSet
@@ -12,17 +13,12 @@ from .models import UserProfile
 from .forms import SignupForm
 
 from django.views.generic import FormView
-
-
-# Create your views here.
+from django.views import generic
 
 
 @login_required
 def home(request):
     return HttpResponse("Hello, world. You're at the polls index.")
-
-
-from django.views import generic
 
 
 class SkillListView(generic.ListView):
@@ -77,3 +73,18 @@ class SignupView(FormView):
         user = authenticate(self.request, kepler_id=kepler_id, password=form.cleaned_data["password"])
         login(self.request, user)
         return super(SignupView, self).form_valid(form)
+
+
+@login_required
+def profile_page(request, kepler_id):
+    context = {}
+    if kepler_id == 'me':
+        user = request.user
+        context['me'] = True
+    else:
+        user = User.objects.get(kepler_id=kepler_id)
+        context['me'] = False
+    profile = UserProfile.objects.get(user=user)
+    context['user'] = user
+    context['user_profile'] = profile
+    return render(request, 'skill_platform/profile.html', context)
