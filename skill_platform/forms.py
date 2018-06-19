@@ -7,23 +7,25 @@ from django.forms.formsets import formset_factory
 from skill_platform.models import User
 from .models import Skill, UserProfile
 from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 
 
 def validate_user_exist(kepler_id):
     if not User.objects.filter(kepler_id=kepler_id).exists():
         raise ValidationError("please make sure that your kepler id is correct")
     return kepler_id
-    account.forms.LoginEmailForm
 
 
 class SignupForm(account.forms.SignupForm):
     avatar = forms.ImageField(required=True)
     kepler_id = forms.CharField(max_length=30, required=True, validators=[validate_user_exist])
     username = None
+    first_name = forms.CharField(max_length=250)
+    last_name = forms.CharField(max_length=250)
 
     def __init__(self, *args, **kwargs):
         super(account.forms.SignupForm, self).__init__(*args, **kwargs)
-        field_order = ["kepler_id", "password", "password_confirm", "avatar"]
+        field_order = ["kepler_id", "first_name", "last_name", "password", "password_confirm", "avatar"]
         if not OrderedDict or hasattr(self.fields, "keyOrder"):
             self.fields.keyOrder = field_order
         else:

@@ -51,7 +51,8 @@ class SignupView(FormView):
         kepler_id = form.cleaned_data['kepler_id']
         avatar = form.cleaned_data['avatar']
         user = User.objects.get(kepler_id=kepler_id)
-        # user.email = form.cleaned_data['email']
+        user.first_name = form.cleaned_data['first_name']
+        user.last_name = form.cleaned_data['last_name']
         user.set_password(form.cleaned_data["password"])
         user.save()
         profile = UserProfile(user=user, avatar=avatar)

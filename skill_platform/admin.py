@@ -28,7 +28,7 @@ class UserCreateForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('kepler_id', 'email')
+        fields = ('kepler_id', 'email', 'tokens')
 
 
 @admin.register(User)
@@ -52,7 +52,7 @@ class UserAdmin(DjangoUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('kepler_id', 'email'),
+            'fields': ('kepler_id', 'email', 'tokens'),
         }),
     )
     list_display = ('kepler_id', 'first_name', 'last_name', 'is_staff')
