@@ -31,15 +31,32 @@ class AddSkillView(FormView):
     def get_context_data(self, **kwargs):
         context = super(AddSkillView, self).get_context_data(**kwargs)
         if self.request.POST:
-            context['formset'] = SkillFormSet(self.request.POST, form_kwargs={'user': self.request.user})
+            context['skills_formset'] = SkillFormSet(self.request.POST)
+            kwargs['form'] = context['form']
         else:
-            context['formset'] = SkillFormSet(form_kwargs={'user': self.request.user})
+            context['skills_formset'] = SkillFormSet()
         return context
 
-    def get_form_kwargs(self):
-        kwargs = super(AddSkillView, self).get_form_kwargs()
-        kwargs['user'] = self.request.user
-        return kwargs
+    # def get_form_kwargs(self):
+    #     kwargs = super(AddSkillView, self).get_form_kwargs()
+    #     kwargs['user'] = self.request.user
+    #     return kwargs
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        formset = context['skills_formset']
+        if formset.is_valid():
+            for form in formset:
+                if form.is_valid():
+                    skill = form.save(commit=False)
+                    skill.user = self.request.user
+                    skill.save()
+            return super(AddSkillView, self).form_valid(form)
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+
+            # def form_invalid(self, form):
+            #         print(form.errors)
 
 
 class SignupView(FormView):

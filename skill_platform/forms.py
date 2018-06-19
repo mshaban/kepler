@@ -3,6 +3,7 @@ from collections import OrderedDict
 import account.forms
 from django import forms
 from django.forms.formsets import formset_factory
+from django.forms.models import ModelForm
 
 from skill_platform.models import User
 from .models import Skill, UserProfile
@@ -53,25 +54,13 @@ class LoginForm(account.forms.LoginForm):
         model = User
 
 
-class SkillForm(forms.Form):
-    name = forms.CharField(max_length=100, required=True)
-    description = forms.CharField(required=True, widget=forms.Textarea)
-
-    def __init__(self, *args, **kwargs):
-        self._user = kwargs.pop('user')
-        super(SkillForm, self).__init__(*args, **kwargs)
+class SkillForm(ModelForm):
+    name = forms.CharField(max_length=100, required=False)
+    description = forms.CharField(widget=forms.Textarea, required=False)
 
     class Meta:
         model = Skill
         exclude = ['user']
 
-    def save(self, commit=True):
-        instance = super(SkillForm, self).save(commit=False)
-        instance.user = self._user
-        if commit:
-            instance.save()
-            self.save_m2m()
-        return instance
 
-
-SkillFormSet = formset_factory(form=SkillForm, max_num=5, extra=2)
+SkillFormSet = formset_factory(form=SkillForm)
