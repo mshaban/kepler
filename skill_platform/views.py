@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from .forms import SkillForm, SkillFormSet
 from django.urls.base import reverse_lazy
 
-from .models import User
+from .models import User, Skill
 
 from .models import UserProfile
 from .forms import SignupForm
@@ -22,6 +22,15 @@ def home(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
 
+from django.views import generic
+
+
+class SkillListView(generic.ListView):
+    model = Skill
+    context_object_name = 'skill_list'
+    template_name = 'skill_platform/skill_list.html'
+
+
 @method_decorator(login_required, name='dispatch')
 class AddSkillView(FormView):
     template_name = 'skill_platform/add_skill.html'
@@ -32,15 +41,9 @@ class AddSkillView(FormView):
         context = super(AddSkillView, self).get_context_data(**kwargs)
         if self.request.POST:
             context['skills_formset'] = SkillFormSet(self.request.POST)
-            kwargs['form'] = context['form']
         else:
             context['skills_formset'] = SkillFormSet()
         return context
-
-    # def get_form_kwargs(self):
-    #     kwargs = super(AddSkillView, self).get_form_kwargs()
-    #     kwargs['user'] = self.request.user
-    #     return kwargs
 
     def form_valid(self, form):
         context = self.get_context_data()
@@ -54,9 +57,6 @@ class AddSkillView(FormView):
             return super(AddSkillView, self).form_valid(form)
         else:
             return self.render_to_response(self.get_context_data(form=form))
-
-            # def form_invalid(self, form):
-            #         print(form.errors)
 
 
 class SignupView(FormView):
