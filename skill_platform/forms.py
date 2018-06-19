@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 import account.forms
 from django import forms
 from django.forms.formsets import formset_factory
@@ -11,16 +13,42 @@ def validate_user_exist(kepler_id):
     if not User.objects.filter(kepler_id=kepler_id).exists():
         raise ValidationError("please make sure that your kepler id is correct")
     return kepler_id
+    account.forms.LoginEmailForm
+
 
 class SignupForm(account.forms.SignupForm):
     avatar = forms.ImageField(required=True)
     kepler_id = forms.CharField(max_length=30, required=True, validators=[validate_user_exist])
     username = None
+
+    def __init__(self, *args, **kwargs):
+        super(account.forms.SignupForm, self).__init__(*args, **kwargs)
+        field_order = ["kepler_id", "password", "password_confirm", "avatar"]
+        if not OrderedDict or hasattr(self.fields, "keyOrder"):
+            self.fields.keyOrder = field_order
+        else:
+            self.fields = OrderedDict((k, self.fields[k]) for k in field_order)
+
     class Meta:
         model = UserProfile
 
 
+class LoginForm(account.forms.LoginForm):
+    kepler_id = forms.CharField(label=("kepler_id"))
+    username = None
+    identifier_field = "kepler_id"
+    authentication_fail_message = ("The email address and/or password you specified are not correct.")
 
+    def __init__(self, *args, **kwargs):
+        super(account.forms.LoginForm, self).__init__(*args, **kwargs)
+        field_order = ["kepler_id", "password", "remember"]
+        if not OrderedDict or hasattr(self.fields, "keyOrder"):
+            self.fields.keyOrder = field_order
+        else:
+            self.fields = OrderedDict((k, self.fields[k]) for k in field_order)
+
+    class Meta:
+        model = User
 
 
 class SkillForm(forms.Form):

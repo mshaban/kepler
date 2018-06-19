@@ -18,12 +18,20 @@ from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
 
-from skill_platform import urls, user_views, views
+from skill_platform import urls, views
+import account.views
+from skill_platform.forms import LoginForm
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
-    url(r"^account/signup/$", user_views.SignupView.as_view(),
+    url(r"^account/signup/$", views.SignupView.as_view(),
         name="account_signup"),
+    url(r'^account/login/$',
+        account.views.LoginView.as_view(
+            form_class=LoginForm
+        ),
+        name='account_login',
+        ),
     url(r"^account/", include("account.urls")),
     path('admin/', admin.site.urls),
     path('skills/', include(urls)),

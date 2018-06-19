@@ -13,6 +13,24 @@ class SkillsInline(admin.TabularInline):
     model = Skill
 
 
+from django.contrib.auth.forms import UserCreationForm
+
+
+class UserCreateForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super(UserCreationForm, self).__init__(*args, **kwargs)
+        self.fields['password1'].required = False
+        self.fields['password2'].required = False
+        # If one field gets autocompleted but not the other, our 'neither
+        # password or both password' validation will be triggered.
+        self.fields['password1'].widget.attrs['autocomplete'] = 'off'
+        self.fields['password2'].widget.attrs['autocomplete'] = 'off'
+
+    class Meta:
+        model = User
+        fields = ('kepler_id', 'email')
+
+
 @admin.register(User)
 class UserAdmin(DjangoUserAdmin):
     """Define admin model for custom User model with no email field."""
@@ -34,7 +52,7 @@ class UserAdmin(DjangoUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('kepler_id', 'password1', 'password2', 'email'),
+            'fields': ('kepler_id', 'email'),
         }),
     )
     list_display = ('kepler_id', 'first_name', 'last_name', 'is_staff')
@@ -44,7 +62,11 @@ class UserAdmin(DjangoUserAdmin):
     inlines = [
         SkillsInline,
     ]
-    # exclude = ['username']
+    add_form = UserCreateForm
+    # prepopulated_fields = {'kepler_id': ('email')}
 
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
 models_to_register = [Skill, UserProfile]  # iterable list
 admin.site.register(models_to_register)

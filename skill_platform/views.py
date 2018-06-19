@@ -1,10 +1,17 @@
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
-from django.urls.base import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import FormView
 
 from .forms import SkillForm, SkillFormSet
+from django.urls.base import reverse_lazy
+
+from .models import User
+
+from .models import UserProfile
+from .forms import SignupForm
+
+from django.views.generic import FormView
 
 
 # Create your views here.
@@ -33,3 +40,22 @@ class AddSkillView(FormView):
         kwargs = super(AddSkillView, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
+
+
+class SignupView(FormView):
+    form_class = SignupForm
+    template_name = 'account/signup.html'
+    success_url = reverse_lazy('addSkill')
+
+    def form_valid(self, form):
+        kepler_id = form.cleaned_data['kepler_id']
+        avatar = form.cleaned_data['avatar']
+        user = User.objects.get(kepler_id=kepler_id)
+        # user.email = form.cleaned_data['email']
+        user.set_password(form.cleaned_data["password"])
+        user.save()
+        profile = UserProfile(user=user, avatar=avatar)
+        profile.save()
+        user = authenticate(self.request, kepler_id=kepler_id, password=form.cleaned_data["password"])
+        login(self.request, user)
+        return super(SignupView, self).form_valid(form)
