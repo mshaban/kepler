@@ -1,0 +1,22 @@
+{% extends '../site_base.html' %}
+
+{% block body %}
+    <h1>Skill List</h1>
+
+    {% if skill_list %}
+        <ul>
+            {% for skill in skill_list %}
+                <li>
+                    <a href="/users/{{ skill.user.kepler_id }}">{{ skill.user }}</a>
+                    <b>{{ skill.name }}</b>
+                    <b>{{ skill.description }}</b>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No User skills atm</p>
+    {% endif %}
+{% endblock %}
+
+
+
