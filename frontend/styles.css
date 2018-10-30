@@ -61,6 +61,13 @@ form input:focus, textarea:focus {
   height: 120px;
 }
 
+/* part of animated gradient effect */
+@keyframes gradientFade {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
 .submit	{
   font-family: "Nunito Sans";
   font-weight: normal;
@@ -71,5 +78,15 @@ form input:focus, textarea:focus {
   border: none;
   margin: 48px 0 0 240px;
   height: 60px;
-  background: linear-gradient(to bottom right, purple, blue);
+  /* Animated gradient effect */
+  background: linear-gradient(
+    330deg,
+    rgba(172,118,181,1) 0%,
+    rgba(69,68,131,1) 32%,
+    rgba(127,177,182,1) 61%,
+    rgba(128,176,159,1) 85%,
+    rgba(109,144,181,1) 100%
+  );
+  background-size: 400% 400%;
+  animation: gradientFade 2s linear infinite;
 }
