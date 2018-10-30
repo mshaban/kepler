@@ -1,0 +1,59 @@
+@font-face {font-family: 'Squared';
+  src: url('Squared Display 2.ttf')  format('truetype');
+}
+
+body {
+  background-color: #000;
+  color: #FFF;
+  font-family: Squared;
+  font-size: 24px;
+}
+
+.wrapper {
+  width: 640px;
+  margin: auto;
+  }
+
+.title {
+  font-size: 48px;
+  text-align: center;
+}
+
+.byline {
+  text-align: center;
+}
+
+form {
+marg  in-top: 24px;
+}
+
+form label {
+  width: 180px;
+  display: inline-block;
+  margin-left: 110px;
+  margin-bottom: 12px;
+}
+
+form input{
+  background-color: #000;
+  color: #FFF;
+  font-family: Squared;
+  font-size: 24px;
+  width: 240px;
+  border-style: solid;
+  border-width: 2px;
+  border-color:	#FFF;
+  border-radius: 10px;
+  height: 30px;
+}
+
+.skills {
+  height: 120px;
+}
+
+.submit	{
+  margin: 48px 0 0 240px;
+  border-style: none;
+  height: 60px;
+  background: linear-gradient(to bottom right, purple, blue);
+}
