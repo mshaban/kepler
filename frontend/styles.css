@@ -34,7 +34,7 @@ form label {
   margin-bottom: 12px;
 }
 
-form input{
+form input, textarea{
   background-color: #000;
   color: #FFF;
   font-family: "Nunito Sans";
@@ -48,7 +48,7 @@ form input{
   height: 30px;
 }
 
-form input:focus {
+form input:focus, textarea:focus {
   outline: none;
 }
 
