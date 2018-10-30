@@ -46,6 +46,7 @@ form input, textarea {
   border-color:	transparent;
   border-radius: 10px;
   height: 30px;
+  resize: none;
 }
 
 form input:focus, textarea:focus {
