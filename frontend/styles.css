@@ -1,11 +1,8 @@
-@font-face {font-family: 'Squared';
-  src: url('Squared Display 2.ttf')  format('truetype');
-}
-
 body {
   background-color: #000;
   color: #FFF;
-  font-family: Squared;
+  font-family: 'Squared Display';
+  font-weight: normal;
   font-size: 24px;
 }
 
@@ -37,7 +34,8 @@ form label {
 form input{
   background-color: #000;
   color: #FFF;
-  font-family: Squared;
+  font-family: "Squared Display";
+  font-weight: normal;
   font-size: 24px;
   width: 240px;
   border-style: solid;
