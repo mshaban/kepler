@@ -1,8 +1,8 @@
 body {
   background-color: #000;
   color: #FFF;
-  font-family: 'Squared Display';
-  font-weight: normal;
+  font-family: "Nunito Sans";
+  font-weight: 200;
   font-size: 24px;
 }
 
@@ -12,6 +12,8 @@ body {
   }
 
 .title {
+  font-family: 'Squared Display';
+  font-weight: normal;
   font-size: 48px;
   text-align: center;
   margin-top: 100px;
@@ -35,7 +37,7 @@ form label {
 form input{
   background-color: #000;
   color: #FFF;
-  font-family: "Squared Display";
+  font-family: "Nunito Sans";
   font-weight: normal;
   font-size: 24px;
   width: 240px;
