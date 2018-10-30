@@ -1,14 +1,14 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
 </head>
 
 {% block nav %}
 
     <ul>
-        <li>h1</li>
-        <li>h2</li>
-        <li>h3</li>
-
+        <li>Base line header</li>
     </ul>
 {% endblock %}
 {% block body %}

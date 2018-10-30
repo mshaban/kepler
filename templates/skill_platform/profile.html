@@ -7,6 +7,7 @@
 
     <img src="/static/{{ user_profile.avatar }}" alt="my avatar" height="100px" width="100px"/><br>
     <b>tokens: {{ user.tokens }}</b>
+    <b>email: {{ user.email }}</b>
     <br>
     <b>Skills</b>
     <br>
@@ -15,4 +16,13 @@
         <b>{{ skill.description }}</b>
         <br>
     {% endfor %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="submit" class="button">
+    </form>
+    {% if tokens_sent %}
+        <div>Thank you the tokens have been sent to {{ to_user }}</div>
+    {% endif %}
 {% endblock %}
