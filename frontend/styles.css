@@ -34,22 +34,23 @@ form label {
   margin-bottom: 12px;
 }
 
-form input, textarea{
-  background-color: #000;
-  color: #FFF;
+form input, textarea {
+  background-color: #2e303d;
+  color: #777d8e;
   font-family: "Nunito Sans";
   font-weight: normal;
   font-size: 24px;
   width: 240px;
   border-style: solid;
   border-width: 2px;
-  border-color:	#FFF;
+  border-color:	transparent;
   border-radius: 10px;
   height: 30px;
 }
 
 form input:focus, textarea:focus {
   outline: none;
+  border-color:	#6ad7b8;
 }
 
 .row {
@@ -61,6 +62,16 @@ form input:focus, textarea:focus {
 }
 
 .submit	{
+  font-family: "Nunito Sans";
+  font-weight: normal;
+  font-size: 24px;
+  text-transform: uppercase;
+  color: #FFF;
+  width: 240px;
+  border-style: solid;
+  border-width: 2px;
+  border-color:	transparent;
+  border-radius: 10px;
   margin: 48px 0 0 240px;
   border-style: none;
   height: 60px;
