@@ -49,7 +49,7 @@ form input, textarea {
   resize: none;
 }
 
-form input:focus, textarea:focus {
+form input:focus, textarea:focus, button:focus {
   outline: none;
   border-color:	#6ad7b8;
 }
