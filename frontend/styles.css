@@ -91,3 +91,20 @@ form input:focus, textarea:focus, button:focus {
   background-size: 400% 400%;
   animation: gradientFade 2s linear infinite;
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 38% auto; /* golden ratio */
+  width: 900px;
+  height: 1000px;
+  margin: auto;
+  border: 2px solid red;
+}
+
+.left-col {
+  border: 2px solid green;
+}
+
+.right-col {
+  border: 2px solid blue;
+}
