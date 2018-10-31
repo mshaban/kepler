@@ -111,9 +111,13 @@ form input:focus, textarea:focus, button:focus {
 
 .search {
   width: 480;
-  margin: 60px auto 20px;
+  margin: 60px auto 40px;
   padding-bottom: 15px;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid rgba(127,177,182,1);
+}
+
+.search .fa-search {
+  color: rgba(109,144,181,1);
 }
 
 .results {
