@@ -4,7 +4,7 @@ from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 
-from .forms import SkillForm, SkillFormSet, SendTokensForm
+from .forms import SkillForm, SkillFormSet, SendTokensForm, LoginForm
 from django.urls.base import reverse_lazy
 
 from .models import User, Skill
@@ -14,7 +14,6 @@ from .forms import SignupForm
 
 from django.views.generic import FormView
 from django.views import generic
-
 
 
 class SkillListView(generic.ListView):
@@ -69,6 +68,18 @@ class SignupView(FormView):
         user = authenticate(self.request, kepler_id=kepler_id, password=form.cleaned_data["password"])
         login(self.request, user)
         return super(SignupView, self).form_valid(form)
+
+
+class LoginView(FormView):
+    form_class = LoginForm
+    template_name = "account/login.html"
+    success_url = '/skills'
+
+    def form_valid(self, form):
+        kepler_id = form.cleaned_data['kepler_id']
+        user = authenticate(self.request, kepler_id=kepler_id, password=form.cleaned_data["password"])
+        login(self.request, user)
+        return super(LoginView, self).form_valid(form)
 
 
 @login_required

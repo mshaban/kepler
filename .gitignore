@@ -3,6 +3,6 @@ venv
 staticfiles/images
 .env
 .idea
-db.sqlite3
+#db.sqlite3
 .DS_Store
 skill_platform/migrations/

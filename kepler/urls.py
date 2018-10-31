@@ -25,10 +25,7 @@ from skill_platform.forms import LoginForm
 urlpatterns = [
     url(r"^account/signup/$", views.SignupView.as_view(),
         name="account_signup"),
-    url(r'^account/login/$',
-        account.views.LoginView.as_view(
-            form_class=LoginForm
-        ),
+    url(r'^account/login/$', views.LoginView.as_view(),
         name='account_login',
         ),
     url(r"^account/", include("account.urls")),
