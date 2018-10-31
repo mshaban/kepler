@@ -115,3 +115,9 @@ form input:focus, textarea:focus, button:focus {
   padding-bottom: 15px;
   border-bottom: 2px solid white;
 }
+
+.results {
+  height: 500px;
+  border: 2px solid rgba(172,118,181,1);
+  border-radius: 20px;
+}
