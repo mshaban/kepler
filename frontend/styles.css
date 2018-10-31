@@ -123,9 +123,12 @@ form input:focus, textarea:focus, button:focus {
 .results-container {
   border: 2px solid rgba(172,118,181,1);
   border-radius: 20px;
+  text-align: center;
+  padding-bottom: 25px;
 }
 
 ul.results {
+  text-align: left;
   list-style-type: none;
   padding: 0;
 }
@@ -135,6 +138,10 @@ ul.results {
   display: grid;
   grid-template-columns: 38% auto; /* golden ratio */
   margin: 35px 25px;
+}
+
+.fa-ellipsis-v {
+  color: rgba(127,177,182,1);
 }
 
 .user-container {
