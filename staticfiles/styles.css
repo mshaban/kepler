@@ -23,11 +23,11 @@ body {
   text-align: center;
 }
 
-form {
+form.registration {
   margin-top: 75px;
 }
 
-form label {
+form.registration label {
   width: 180px;
   display: inline-block;
   margin-left: 110px;
@@ -90,4 +90,96 @@ form input:focus, textarea:focus, button:focus {
   );
   background-size: 400% 400%;
   animation: gradientFade 2s linear infinite;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 38% auto; /* golden ratio */
+  width: 900px;
+  height: 1000px;
+  margin: auto;
+}
+
+.left-col {
+}
+
+.right-col {
+}
+
+.search {
+  width: 480;
+  margin: 60px auto 40px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(127,177,182,1);
+}
+
+.search .fa-search {
+  color: rgba(109,144,181,1);
+}
+
+.results-container {
+  border: 2px solid rgba(172,118,181,1);
+  border-radius: 20px;
+  text-align: center;
+  padding-bottom: 25px;
+}
+
+ul.results {
+  text-align: left;
+  list-style-type: none;
+  padding: 0;
+}
+
+.result-item {
+  font-size: 18px;
+  display: grid;
+  grid-template-columns: 38% auto; /* golden ratio */
+  margin: 35px 25px;
+}
+
+.fa-ellipsis-v {
+  color: rgba(127,177,182,1);
+}
+
+.user-container, .other-user-container {
+  margin-top: 100px;
+}
+
+.avatar {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  display: inline-grid;
+}
+
+.user-details {
+  display: inline-block;
+  font-size: 16px;
+}
+
+.other-user-container {
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.other-user-avatar {
+  width: 115px;
+  height: 115px;
+  border-radius: 50%;
+  display: inline-grid;
+}
+
+form.token-send {
+  text-align: center;
+  margin: 75px;
+}
+
+form.token-send input {
+  width: 300px;
+  margin: 45px auto;
+}
+
+form.token-send button {
+  margin: auto;
 }
