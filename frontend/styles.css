@@ -180,3 +180,7 @@ form.token-send input {
   width: 300px;
   margin: 45px auto;
 }
+
+form.token-send button {
+  margin: auto;
+}
