@@ -98,15 +98,12 @@ form input:focus, textarea:focus, button:focus {
   width: 900px;
   height: 1000px;
   margin: auto;
-  border: 2px solid red;
 }
 
 .left-col {
-  border: 2px solid green;
 }
 
 .right-col {
-  border: 2px solid blue;
 }
 
 .search {
@@ -146,13 +143,11 @@ ul.results {
 
 .user-container {
   margin-top: 100px;
-  border: 2px solid purple;
 }
 
 .avatar {
   width: 75px;
   height: 75px;
-  border: 3px solid red;
   border-radius: 50%;
   display: inline-grid;
 }
