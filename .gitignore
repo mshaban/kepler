@@ -1,6 +1,6 @@
 venv
 *.pyc
-staticfiles/images
+#staticfiles/images
 .env
 .idea
 #db.sqlite3
