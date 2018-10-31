@@ -108,3 +108,10 @@ form input:focus, textarea:focus, button:focus {
 .right-col {
   border: 2px solid blue;
 }
+
+.search {
+  width: 480;
+  margin: 60px auto 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid white;
+}
