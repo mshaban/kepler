@@ -122,3 +122,9 @@ def profile_page(request, kepler_id):
         context['from_user'] = request.user
         context['to_user'] = to_user
     return render(request, 'skill_platform/other_profile.html', context)
+
+
+@login_required
+def platform_users(request):
+    all_users = UserProfile.objects.all()
+    return render(request, 'skill_platform/all_users.html', {'all_users': all_users})

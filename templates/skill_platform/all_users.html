@@ -1,0 +1,50 @@
+{% extends '../site_base.html' %}
+
+{% block body %}
+    <div class="grid-container">
+        <div class="left-col">
+            <div class="user-container">
+                <img class="avatar" src="{{ user.userprofile.avatar.url }}"></img>
+                <div class="user-details">
+                    <div class="user-name">
+                        {{ user.first_name }} {{ user.last_name }} ({{ user.kepler_id }})
+                    </div>
+                    <div class="user-email">
+                        {{ user.email }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-col">
+            <div class="title">Explore all users</div>
+            {#            <div class="search">#}
+            {#                <i class="fas fa-search"></i>#}
+            {#            </div>#}
+
+            <div class="results-container">
+                <ul class="results">
+                    {% for up in all_users %}
+                        <li class="result-item">
+                            <div class="other-user-container">
+
+                                <div>
+                                    <span class="name"><a
+                                            href="/user/{{ up.user.kepler_id }}"><img class="other-user-avatar"
+                                                                                      src="{{ up.avatar.url }}"></img> {{ up.user.first_name }}</a></span>
+                                    |
+                                    <span class="kepler-id">{{ up.user.kepler_id }}</span>
+                                    <br>
+                                    {{ up.user.skills.all|join:", " }}
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <i class="fas fa-ellipsis-v"></i>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+

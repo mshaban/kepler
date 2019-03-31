@@ -31,7 +31,8 @@ urlpatterns = [
     url(r"^account/", include("account.urls")),
     path('admin/', admin.site.urls),
     path('skills/', include(urls)),
-    url(r'^user/(?P<kepler_id>\w{0,50})/$', views.profile_page, ),
+    url(r'^user/(?P<kepler_id>\w{0,50})/$', views.profile_page, name='user_profiles'),
+    url(r'^user/all', views.platform_users, name='all_users'),
     url(r'^$', views.index, )
 ]
 
