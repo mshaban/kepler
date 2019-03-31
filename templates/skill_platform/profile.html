@@ -1,28 +1,76 @@
 {% extends '../site_base.html' %}
 {% load static %}
 {% block body %}
-    <b>first name: {{ user.first_name }}</b>
-    <br>
-    <b>last name: {{ user.last_name }}</b><br>
+    <div class="grid-container">
+        <div class="left-col">
+            <div class="user-container">
+                <img class="avatar" src="{{ user.userprofile.avatar.url }}"></img>
+                <div class="user-details">
+                    <div class="user-name">
+                        {{ user.first_name }} {{ user.last_name }} ({{ user.kepler_id }})
+                    </div>
+                    <div class="user-email">
+                        {{ user.email }}
+                        {{ user.tokens }} Tokens
+                    </div>
+                </div>
+                <div class="results-container">
+                    <ul class="results">
 
-    <img src="{{ user_profile.avatar.url }}" alt="my avatar" height="100px" width="100px"/><br>
-    <b>tokens: {{ user.tokens }}</b>
-    <b>email: {{ user.email }}</b>
-    <br>
-    <b>Skills</b>
-    <br>
-    {% for skill in user.skills.all %}
-        <b>{{ skill.name }}</b>
-        <b>{{ skill.description }}</b>
-        <br>
-    {% endfor %}
+                        {% for skill in user.skills.all %}
+                            <li class="result-item">
+                                <div class="personal-skills">
+                                    <span><b>{{ skill.name }}: {{ skill.description }}</b></span>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <i class="fas fa-ellipsis-v"></i>
+                </div>
+            </div>
+        </div>
+        <div class="right-col">
 
-    <form method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="submit" class="button">
-    </form>
-    {% if tokens_sent %}
-        <div>Thank you the tokens have been sent to {{ to_user }}</div>
-    {% endif %}
+
+            <div>
+                <p> left intentionally empty for now </p>
+            </div>
+            {#            {% if not me %}#}
+            {#                <div class="other-user-container">#}
+            {#                    <div class="user-details">#}
+            {#                        <div class="user-name">#}
+            {#                            {{ from_user.first_name }} {{ from_user.last_name }} ({{ from_user.kepler_id }})#}
+            {#                        </div>#}
+            {#                        <div class="user-email">#}
+            {#                            {{ from_user.email }}#}
+            {#                        </div>#}
+            {#                    </div>#}
+            {#                    <img class="other-user-avatar"#}
+            {#                         src="{{ from_user.userprofile.avatar.url }}"></img>#}
+            {#                    <div class="other-user-skills">#}
+            {#                        {{ from_user.skills.all|join:", " }}#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#                <form method="POST" class="token-send">#}
+            {#                    {% csrf_token %}#}
+            {#                    <label for="{{ form.fields.tokens.label }}">Number of tokens to send#}
+            {#                        to {{ user.first_name }}. </label>#}
+            {#                    <input type="text" name="tokens" autofocus value="0"></input>#}
+            {#                    {{ form.fields.tokens.errors }}#}
+            {#                    {% for hd in form.hidden_fields %}#}
+            {#                        {{ hd }}#}
+            {#                    {% endfor %}#}
+            {#                    {{ form.non_field_errors }}#}
+            {#                    {{ form.source.errors }}#}
+            {#                    {{ form.source }}#}
+            {#                    <button class="submit" type="submit">Send Tokens</button>#}
+            {#                    <br>#}
+            {#                    <br>#}
+            {#                    {% if tokens_sent %}#}
+            {#                        <div>Thank you the tokens have been sent to {{ to_user }}</div>#}
+            {#                    {% endif %}#}
+            {#                </form>#}
+            {#            {% endif %}#}
+        </div>
+    </div>
 {% endblock %}

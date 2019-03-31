@@ -32,6 +32,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('skills/', include(urls)),
     url(r'^user/(?P<kepler_id>\w{0,50})/$', views.profile_page, ),
+    url(r'^$', views.index, )
 ]
 
 urlpatterns += staticfiles_urlpatterns()

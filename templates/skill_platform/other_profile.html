@@ -1,0 +1,73 @@
+{% extends '../site_base.html' %}
+{% load static %}
+{% block body %}
+    <div class="grid-container">
+        <div class="left-col">
+            <div class="user-container">
+                <img class="avatar" src="{{ from_user.userprofile.avatar.url }}"></img>
+                <div class="user-details">
+                    <div class="user-name">
+                        {{ from_user.first_name }} {{ from_user.last_name }} ({{ from_user.kepler_id }})
+                    </div>
+                    <div class="user-email">
+                        {{ from_user.email }}
+                        {{ from_user.tokens }} Tokens
+                    </div>
+                </div>
+                <div class="other-user-skills">
+                    {{ from_user.skills.all|join:", " }}
+                </div>
+            </div>
+        </div>
+        <div class="right-col">
+
+            {% if not me %}
+                <div class="other-user-container">
+                    <div class="user-details">
+                        <div class="user-name">
+                            {{ to_user.first_name }} {{ to_user.last_name }} ({{ to_user.kepler_id }})
+                        </div>
+                        <div class="user-email">
+                            {{ to_user.email }}
+                        </div>
+                    </div>
+                    <img class="other-user-avatar"
+                         src="{{ to_user.userprofile.avatar.url }}"></img>
+
+
+                    <div class="results-container">
+                        <ul class="results">
+                            {% for skill in to_user.skills.all %}
+                                <li class="result-item">
+                                    <div class="personal-skills">
+                                        <span><b>{{ skill.name }}: {{ skill.description }}</b></span>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <i class="fas fa-ellipsis-v"></i>
+                    </div>
+                </div>
+                <form method="POST" class="token-send">
+                    {% csrf_token %}
+                    <label for="{{ form.fields.tokens.label }}">Number of tokens to send
+                        to {{ from_user.first_name }}. </label>
+                    <input type="text" name="tokens" autofocus value="0"></input>
+                    {{ form.fields.tokens.errors }}
+                    {% for hd in form.hidden_fields %}
+                        {{ hd }}
+                    {% endfor %}
+                    {{ form.non_field_errors }}
+                    {{ form.source.errors }}
+                    {{ form.source }}
+                    <button class="submit" type="submit">Send Tokens</button>
+                    <br>
+                    <br>
+                    {% if tokens_sent %}
+                        <div>Thank you the {{ tokens_sent }} tokens have been sent to {{ to_user.first_name }}</div>
+                    {% endif %}
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

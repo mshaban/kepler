@@ -1,19 +1,21 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.http.response import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
-from django.utils.decorators import method_decorator
-
-from .forms import SkillForm, SkillFormSet, SendTokensForm, LoginForm
+from django.shortcuts import redirect, render
 from django.urls.base import reverse_lazy
-
-from .models import User, Skill
-
-from .models import UserProfile
-from .forms import SignupForm
-
-from django.views.generic import FormView
+from django.utils.decorators import method_decorator
 from django.views import generic
+from django.views.generic import FormView
+
+from .forms import LoginForm, SendTokensForm, SignupForm, SkillForm, SkillFormSet
+from .models import Skill, User, UserProfile
+
+
+def index(request):
+    if request.user.is_authenticated:
+        response = redirect('skillList')
+    else:
+        response = redirect('account_signup')
+    return response
 
 
 class SkillListView(generic.ListView):
@@ -87,16 +89,17 @@ def profile_page(request, kepler_id):
     context = {}
     if kepler_id == 'me' or kepler_id == request.user.kepler_id:
         user = request.user
-        context['me'] = True
-    else:
-        user = User.objects.get(kepler_id=kepler_id)
-        context['me'] = False
-    profile = UserProfile.objects.get(user=user)
-    context['user'] = user
-    context['user_profile'] = profile
+        context['user'] = user
+        return render(request, 'skill_platform/profile.html', context)
+
+    to_user = User.objects.get(kepler_id=kepler_id)
+
+    if not UserProfile.objects.filter(user=to_user).exists():
+        # TODO fix this
+        response = redirect('skillList')
 
     # if this is a POST request we need to process the form data
-    if request.method == 'POST' and not context['me']:
+    if request.method == 'POST':
         form = SendTokensForm(request.POST)
         context['form'] = form
         if form.is_valid():
@@ -109,13 +112,13 @@ def profile_page(request, kepler_id):
             to_user.tokens += token_cnt
             from_user.save()
             to_user.save()
-            context['tokens_sent'] = True
-            context['to_user'] = "{} {}".format(to_user.first_name, to_user.last_name)
+            context['tokens_sent'] = int(token_cnt)
+            context['to_user'] = to_user
+            context['from_user'] = request.user
     # if a GET (or any other method) we'll create a blank form
     else:
-        if not context['me']:
-            to_user = kepler_id
-            from_user = request.user.kepler_id
-            form = SendTokensForm(initial={"from_user": from_user, "to_user": to_user, "tokens": 0})
-            context['form'] = form
-    return render(request, 'skill_platform/profile.html', context)
+        form = SendTokensForm(initial={"from_user": request.user.kepler_id, "to_user": kepler_id, "tokens": 0})
+        context['form'] = form
+        context['from_user'] = request.user
+        context['to_user'] = to_user
+    return render(request, 'skill_platform/other_profile.html', context)
