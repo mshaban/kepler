@@ -1,8 +1,9 @@
 venv
 *.pyc
-#staticfiles/images
+staticfiles/images
+kepler/media
 .env
 .idea
-#db.sqlite3
+db.sqlite3
 .DS_Store
 skill_platform/migrations/

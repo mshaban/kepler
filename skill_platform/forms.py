@@ -2,13 +2,12 @@ from collections import OrderedDict
 
 import account.forms
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms.formsets import formset_factory
 from django.forms.models import ModelForm
 
-from skill_platform.models import User, UserProfile
+from skill_platform.models import User
 from .models import Skill, UserProfile
-from django.core.exceptions import ValidationError
-from django.utils.translation import ugettext_lazy as _
 
 
 def validate_user_exist(kepler_id):
@@ -36,15 +35,6 @@ class SignupForm(account.forms.SignupForm):
     class Meta:
         model = UserProfile
 
-    def clean_kepler_id(self):
-        kepler_id = self.cleaned_data['kepler_id']
-        if not User.objects.filter(kepler_id=kepler_id).exists():
-            raise ValidationError("please make sure that your kepler id is correct")
-        user = User.objects.filter(kepler_id=kepler_id).first()
-        if UserProfile.objects.filter(user=user).exists():
-            raise ValidationError("Kepler profile already exists")
-        return kepler_id
-
     def clean_email(self):
         email = self.cleaned_data['email']
         return email
@@ -52,10 +42,17 @@ class SignupForm(account.forms.SignupForm):
     def clean(self):
         form_data = self.cleaned_data
         kepler_id = form_data['kepler_id']
+        if not User.objects.filter(kepler_id=kepler_id).exists():
+            self.add_error('kepler_id', "please make sure that your kepler id is correct")
+            # raise ValidationError("please make sure that your kepler id is correct")
+        user = User.objects.filter(kepler_id=kepler_id).first()
+        if UserProfile.objects.filter(user=user).exists():
+            self.add_error('kepler_id', "Kepler profile already exists, please login")
+            # raise ValidationError("Kepler profile already exists")
         email = form_data['email']
-        user_profile = User.objects.filter(kepler_id=kepler_id).first()
-        if user_profile.email != email:
-            raise ValidationError("Provided kepler id and email doesn't match")
+        if user and user.email != email:
+            self.add_error('email', "Provided kepler id and email doesn't match")
+            # raise ValidationError("Provided kepler id and email doesn't match")
         return form_data
 
 

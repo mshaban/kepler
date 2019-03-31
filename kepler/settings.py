@@ -153,3 +153,6 @@ AUTH_USER_MODEL = 'skill_platform.User'
 LOGIN_URL = '/account/login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+MEDIA_URL = '/media/'

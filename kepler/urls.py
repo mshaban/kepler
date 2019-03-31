@@ -15,12 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.contrib.staticfiles.urls import static, staticfiles_urlpatterns
 from django.urls import path
 from django.urls.conf import include
 
 from skill_platform import urls, views
-import account.views
-from skill_platform.forms import LoginForm
+from . import settings
 
 urlpatterns = [
     url(r"^account/signup/$", views.SignupView.as_view(),
@@ -33,3 +33,6 @@ urlpatterns = [
     path('skills/', include(urls)),
     url(r'^user/(?P<kepler_id>\w{0,50})/$', views.profile_page, ),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

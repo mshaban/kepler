@@ -5,7 +5,7 @@
     <br>
     <b>last name: {{ user.last_name }}</b><br>
 
-    <img src="/static/{{ user_profile.avatar }}" alt="my avatar" height="100px" width="100px"/><br>
+    <img src="{{ user_profile.avatar.url }}" alt="my avatar" height="100px" width="100px"/><br>
     <b>tokens: {{ user.tokens }}</b>
     <b>email: {{ user.email }}</b>
     <br>
