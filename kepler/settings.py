@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+
 import dj_database_url
 import django_heroku
 
@@ -42,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     # 3rd party lib
     'skill_platform',
-    # "bootstrapform",
+    "bootstrapform",
     "account",
 
 ]
@@ -156,3 +157,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 MEDIA_URL = '/media/'
+
