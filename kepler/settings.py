@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     # 3rd party lib
     'skill_platform',
-    "bootstrapform",
+    # "bootstrapform",
     "account",
 
 ]
