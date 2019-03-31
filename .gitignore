@@ -6,4 +6,4 @@ kepler/media
 .idea
 db.sqlite3
 .DS_Store
-skill_platform/migrations/
+#skill_platform/migrations/
