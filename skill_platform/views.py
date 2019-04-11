@@ -115,6 +115,9 @@ def profile_page(request, kepler_id):
             context['tokens_sent'] = int(token_cnt)
             context['to_user'] = to_user
             context['from_user'] = request.user
+        else:
+            context['from_user'] = request.user
+            context['to_user'] = to_user
     # if a GET (or any other method) we'll create a blank form
     else:
         form = SendTokensForm(initial={"from_user": request.user.kepler_id, "to_user": kepler_id, "tokens": 0})
